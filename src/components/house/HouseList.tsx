@@ -2,7 +2,7 @@ import { House } from "../../types/house";
 import useFetchHouses from "../../hooks/HouseHooks";
 
 const HouseList = () => {
-  const houses = useFetchHouses();
+  const { data: houses } = useFetchHouses();
 
   return (
     <>
