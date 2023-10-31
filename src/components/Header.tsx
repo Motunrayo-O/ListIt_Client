@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../ListItLogo.png";
+import logo from "../main/ListItLogo.png";
 
 type Props = {
   subtitle: string;
