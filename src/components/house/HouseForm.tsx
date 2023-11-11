@@ -1,6 +1,7 @@
 import { MouseEventHandler, useState } from "react";
 import { House } from "../../types/house";
 import { useNavigate } from "react-router-dom";
+import toBase64 from "../../toBase64";
 
 type Props = {
   house: House;
@@ -15,6 +16,19 @@ const HouseForm = ({ house, onSubmit }: Props) => {
     e.preventDefault();
     onSubmit(houseState);
   };
+
+  const onFileSelected = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    e.target.files &&
+      e.target.files[0] &&
+      setHouseState({
+        ...houseState,
+        photo: await toBase64(e.target.files[0]),
+      });
+  };
+
   return (
     <form className="mt-2">
       <div className="form-group mb-3">
@@ -73,6 +87,20 @@ const HouseForm = ({ house, onSubmit }: Props) => {
             })
           }
         ></input>
+      </div>
+
+      <div className="form-group mb-3">
+        <label htmlFor="photo">Photo</label>
+        <input
+          type="file"
+          placeholder="Upload photo"
+          id="photo"
+          className="form-control"
+          onChange={onFileSelected}
+        />
+      </div>
+      <div className="mt-2 mb-3">
+        <img src={houseState.photo} alt="House" />
       </div>
 
       <div className="row">
