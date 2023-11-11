@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
+import Problem from "../types/problem";
 
 const useFetchHouses = () => {
   return useQuery<House[], AxiosError>("houses", () =>
@@ -19,7 +20,7 @@ const useFetchHouse = (id: number) => {
 const useAddHouse = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation<AxiosResponse, AxiosError, House>(
+  return useMutation<AxiosResponse, AxiosError<Problem>, House>(
     (house) => axios.post(`${config.baseApiUrl}/houses`, house),
     {
       onSuccess: () => {
@@ -33,7 +34,7 @@ const useAddHouse = () => {
 const useUpdateHouse = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation<AxiosResponse, AxiosError, House>(
+  return useMutation<AxiosResponse, AxiosError<Problem>, House>(
     (house) => axios.put(`${config.baseApiUrl}/houses`, house),
     {
       onSuccess: (_, house) => {
