@@ -4,6 +4,7 @@ import { useDeleteHouse, useFetchHouse } from "../../hooks/HouseHooks";
 import ApiStatus from "../../ApiStatus";
 import { currencyFormatter } from "../../config";
 import defaultImage from "./defaultPhoto";
+import Bids from "../bids/Bids";
 
 const HouseDetail = () => {
   const { id } = useParams();
@@ -20,7 +21,11 @@ const HouseDetail = () => {
     <div className="row">
       <div className="col-6">
         <div className="row">
-          <img className="img-fluid" src={data.photo ? data.photo : defaultImage} alt="House" />
+          <img
+            className="img-fluid"
+            src={data.photo ? data.photo : defaultImage}
+            alt="House"
+          />
         </div>
         <div className="row mt-3">
           <div className="col-2">
@@ -34,10 +39,10 @@ const HouseDetail = () => {
           <div className="col-2">
             <button
               className="btn btn-danger w-100"
-                onClick={() => {
-                  if (window.confirm("Are you sure?"))
-                    deleteHouseMutation.mutate(data);
-                }}
+              onClick={() => {
+                if (window.confirm("Are you sure?"))
+                  deleteHouseMutation.mutate(data);
+              }}
             >
               Delete
             </button>
@@ -60,7 +65,7 @@ const HouseDetail = () => {
         <div className="row">
           <div className="col-12 mt-3">{data.description}</div>
         </div>
-        {/* <Bids house={data} /> */}
+        <Bids house={data} />
       </div>
     </div>
   );
